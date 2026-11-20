@@ -1,0 +1,32 @@
+# Production-like stack: Postgres + the API (which also serves the web app).
+# Usage: cp .env.example .env  &&  edit values  &&  docker compose up -d --build
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: finaura
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+      POSTGRES_DB: finaura
+    volumes: [pgdata:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U finaura"]
+      interval: 5s
+      retries: 10
+  app:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      db: { condition: service_healthy }
+    ports: ["8080:8080"]
+    environment:
+      DATABASE_URL: postgres://finaura:${POSTGRES_PASSWORD}@db:5432/finaura
+      PUBLIC_URL: ${PUBLIC_URL:-http://localhost:8080}
+      # Set to false ONLY when serving over plain http (e.g. local trial). Keep true behind HTTPS.
+      COOKIE_SECURE: ${COOKIE_SECURE:-true}
+      SMTP_URL: ${SMTP_URL:-}
+      MAIL_FROM: ${MAIL_FROM:-FinAura <no-reply@localhost>}
+      ALPHA_VANTAGE_KEY: ${ALPHA_VANTAGE_KEY:-}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+volumes:
+  pgdata:

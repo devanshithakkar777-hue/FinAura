@@ -1,0 +1,12 @@
+finaura/node_modules/
+finaura/dist/
+
+# Environment files — never commit real keys
+.env
+.env.*
+finaura/.env
+finaura/.env.*
+!.env.example
+!finaura/.env.example
+
+.DS_Store
