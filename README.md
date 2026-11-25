@@ -1,5 +1,11 @@
 # FinAura
 
+[![Live demo](https://img.shields.io/badge/Live%20demo-finaura--hq9t.onrender.com-46E3B7?style=for-the-badge&logo=render&logoColor=black)](https://finaura-hq9t.onrender.com)
+![License: MIT](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
+
+> **Try it live:** <https://finaura-hq9t.onrender.com>. The demo runs on free hosting and may take about 50 seconds to wake up on the first visit.
+
 Behavior-first investing intelligence. FinAura measures what your own decisions have cost you, stops the next emotional mistake before you make it, and simulates the future you're building.
 
 | Feature | What it does |
